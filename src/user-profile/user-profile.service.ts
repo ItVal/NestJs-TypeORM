@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, NotFoundException } from '@nestjs/common';
 import { CreateUserProfileDto } from './dto/create-user-profile.dto';
 import { UpdateUserProfileDto } from './dto/update-user-profile.dto';
 import { UserProfiles } from 'src/entities/userProfiles.entity';
@@ -21,14 +21,18 @@ export class UserProfileService {
   }
 
   findOne(id: number) {
-    return `This action returns a #${id} userProfile`;
+    const profile = this.usersProfileRepository.findOne({ where: { id } });
+     if (!profile) {
+               throw new NotFoundException(`User with id ${id} not found`);
+           }
+           return profile;
   }
 
-  update(id: number, updateUserProfileDto: UpdateUserProfileDto) {
-    return `This action updates a #${id} userProfile`;
-  }
+  // update(id: number, updateUserProfileDto: UpdateUserProfileDto) {
+  //   return `This action updates a #${id} userProfile`;
+  // }
 
-  remove(id: number) {
-    return `This action removes a #${id} userProfile`;
-  }
+  // remove(id: number) {
+  //   return `This action removes a #${id} userProfile`;
+  // }
 }
