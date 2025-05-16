@@ -8,6 +8,7 @@ import {
   Patch,
   UsePipes,
   ValidationPipe,
+  Delete,
 } from '@nestjs/common';
 import { createUsersDto } from './dto/createUsers.dto';
 import { UsersService } from './users.service';
@@ -55,4 +56,9 @@ export class UsersController {
   ) {
     return this.usersService.update(id, body);
   }
+
+@Delete('delete/:id')
+remove(@Param('id') id) {
+  return this.usersService.remove(id);  
+}
 }
