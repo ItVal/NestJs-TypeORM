@@ -1,9 +1,10 @@
-import { Injectable, Next, NotFoundException } from '@nestjs/common';
+import { BadRequestException, Injectable, Next, NotFoundException } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { User } from 'src/entities/users.entity';
 import { Repository } from 'typeorm';
 import { createUsersDto } from './dto/createUsers.dto';
 import { UpdateUserDto } from './dto/updateUser.dto';
+import { validate as isUUID } from 'uuid';
 
 @Injectable()
 export class UsersService {
@@ -11,14 +12,14 @@ export class UsersService {
         @InjectRepository(User)
         private usersRepository: Repository<User>,
     ) {}
-
+    
+//findAll
     async findAll(){
         return await this.usersRepository.find();
     }
 
 
-
-    //findOne
+//findOne
     async findOne(id: number) {
        const user =  await this.usersRepository.findOne({ where: { id } });
        if (!user) {
@@ -28,21 +29,21 @@ export class UsersService {
 
     }
 
-
+//create user
     async create(dto:createUsersDto) {
         return await this.usersRepository.save(dto);
     }
-    // update user
+
+// update user
     async update(id: number, updateUserDto: UpdateUserDto) {
+        // Vérifie que l'ID est un UUID valide
+        if (!isUUID(id)) {
+          throw new BadRequestException(`Invalid ID format. Expected UUID.`);
+        }
        return await this.usersRepository.update(id, updateUserDto);
-        // const updatedUser = await this.usersRepository.findOneBy({ id });
-        // if (!updatedUser) {
-        //     throw new Error(`User with id ${id} not found`);
-        // }
-        // ret
-        // urn updatedUser;
     }
 
+//remove user
     async remove(id: number) {
     const user =  await this.usersRepository.findOne({ where: { id } });
        if (!user) {
