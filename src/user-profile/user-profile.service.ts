@@ -22,33 +22,28 @@ export class UserProfileService {
   }
 
  async findOne(id: number) {
-    const profile = await this.usersProfileRepository.findOne({ where: { id } });
-     if (!profile) {
-               throw new NotFoundException(`User with id ${id} not found`);
-           }
-           return profile;
+   // Vérifie que l'ID est un UUID valide
+    if (!isUUID(id)) {
+    throw new BadRequestException(`Invalid ID format. Expected UUID.`);
   }
+     return  await this.usersProfileRepository.findOne({ where: { id } });
 
-
-// async update(id: number, updateUserProfileDto: UpdateUserProfileDto) {
-//     const profile = await this.usersProfileRepository.update(id, updateUserProfileDto);
-//     if (!profile) {
-//       throw new NotFoundException(`User with id ${id} not found, maybe not exist?`);
-//     } 
-//     return profile;
-//   }
+  }
 
 async update(id: string, updateUserProfileDto: UpdateUserProfileDto) {
   // Vérifie que l'ID est un UUID valide
   if (!isUUID(id)) {
     throw new BadRequestException(`Invalid ID format. Expected UUID.`);
   }
-    // .update()
  return  await this.usersProfileRepository.update(id, updateUserProfileDto);
  
 }
 
-  // remove(id: number) {
-  //   return `This action removes a #${id} userProfile`;
-  // }
+  async remove(id: number) {
+     // Vérifie que l'ID est un UUID valide
+  if (!isUUID(id)) {
+    throw new BadRequestException(`Invalid ID format. Expected UUID.`);
+  }
+    return await this.usersProfileRepository.delete({ id });
+  }
 }
