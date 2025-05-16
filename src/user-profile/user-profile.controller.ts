@@ -27,8 +27,8 @@ export class UserProfileController {
     return this.userProfileService.update(id, body);
   }
 
-  // @Delete('delete/:id')
-  // remove(@Param('id') id: string) {
-  //   return this.userProfileService.remove(+id);
-  //}
+  @Delete('delete/:id')
+  remove(@Param('id') id) {
+    return this.userProfileService.remove(id);
+  }
 }
