@@ -10,17 +10,23 @@ import {
   ValidationPipe,
 } from '@nestjs/common';
 import { createUsersDto } from './dto/createUsers.dto';
+import { UsersService } from './users.service';
 
 @Controller('users')
 export class UsersController {
+  constructor(private readonly usersService: UsersService) {}
+
+
   @Get()
   findAll() {
     return 'This action returns all users';
   }
-  @Get('one/:id')
-  findOne(@Param() id) {
-    return id;
-  }
+
+
+  // @Get('one/:id')
+  // findOne(@Param('id') id) {
+  //   return this.usersService.findOne(id);
+  // }
 
   @Post('create')
   // utilisation de la validation des données avec le pipe ValidationPipe
@@ -33,15 +39,13 @@ export class UsersController {
 //     }),
 //   )
 
-
   // definition du code de retour 
   @HttpCode(202)
-  create(
-    @Body()
-    body: createUsersDto,
-  ) {
-    return body;
+  create( @Body() dto: createUsersDto,) {
+    return this.usersService.create(dto);
   }
+
+
   @Patch('edit/:id')
   update(
     @Param() id,
