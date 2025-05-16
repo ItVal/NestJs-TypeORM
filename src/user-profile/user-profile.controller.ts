@@ -3,13 +3,13 @@ import { UserProfileService } from './user-profile.service';
 import { CreateUserProfileDto } from './dto/create-user-profile.dto';
 import { UpdateUserProfileDto } from './dto/update-user-profile.dto';
 
-@Controller('user-profile')
+@Controller('profile')
 export class UserProfileController {
   constructor(private readonly userProfileService: UserProfileService) {}
 
-  @Post()
-  create(@Body() createUserProfileDto: CreateUserProfileDto) {
-    return this.userProfileService.create(createUserProfileDto);
+  @Post('create')
+  create(@Body() dto: CreateUserProfileDto) {
+    return this.userProfileService.create(dto);
   }
 
   @Get()

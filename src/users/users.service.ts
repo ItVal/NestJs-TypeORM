@@ -29,7 +29,7 @@ export class UsersService {
     }
 
 
-    async create(dto:createUsersDto): Promise<User> {
+    async create(dto:createUsersDto) {
         return await this.usersRepository.save(dto);
     }
     // update user
