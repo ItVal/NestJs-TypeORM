@@ -9,12 +9,15 @@ import { Repository } from 'typeorm';
 export class UserProfileService {
      constructor(
             @InjectRepository(UserProfiles)
-            private usersRepository: Repository<UserProfiles>,
+            private usersProfileRepository: Repository<UserProfiles>,
   ) {}
   
+  async create(dto: CreateUserProfileDto) {
+    return await this.usersProfileRepository.save(dto);
+  }
 
   async findAll() {
-    return  await this.usersRepository.find();
+    return  await this.usersProfileRepository.find();
   }
 
   findOne(id: number) {

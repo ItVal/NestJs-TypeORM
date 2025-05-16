@@ -1,7 +1,6 @@
 import { IsString, Length } from "class-validator";
 
 export class CreateUserProfileDto {
-    id: number;
             @IsString()
             fullPame: string;
             @IsString()
