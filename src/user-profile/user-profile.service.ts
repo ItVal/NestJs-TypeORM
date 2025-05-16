@@ -20,17 +20,21 @@ export class UserProfileService {
     return  await this.usersProfileRepository.find();
   }
 
-  findOne(id: number) {
-    const profile = this.usersProfileRepository.findOne({ where: { id } });
+ async findOne(id: number) {
+    const profile = await this.usersProfileRepository.findOne({ where: { id } });
      if (!profile) {
                throw new NotFoundException(`User with id ${id} not found`);
            }
            return profile;
   }
 
-  // update(id: number, updateUserProfileDto: UpdateUserProfileDto) {
-  //   return `This action updates a #${id} userProfile`;
-  // }
+async update(id: number, updateUserProfileDto: UpdateUserProfileDto) {
+    const profile = await this.usersProfileRepository.update(id, updateUserProfileDto);
+    if (!profile) {
+      throw new NotFoundException(`User with id ${id} not found (maybe not exist)`);
+    } 
+    return profile;
+  }
 
   // remove(id: number) {
   //   return `This action removes a #${id} userProfile`;
