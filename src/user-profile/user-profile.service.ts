@@ -1,15 +1,20 @@
 import { Injectable } from '@nestjs/common';
 import { CreateUserProfileDto } from './dto/create-user-profile.dto';
 import { UpdateUserProfileDto } from './dto/update-user-profile.dto';
+import { UserProfiles } from 'src/entities/userProfiles.entity';
+import { InjectRepository } from '@nestjs/typeorm';
+import { Repository } from 'typeorm';
 
 @Injectable()
 export class UserProfileService {
-  create(createUserProfileDto: CreateUserProfileDto) {
-    return 'This action adds a new userProfile';
-  }
+     constructor(
+            @InjectRepository(UserProfiles)
+            private usersRepository: Repository<UserProfiles>,
+  ) {}
+  
 
-  findAll() {
-    return `This action returns all userProfile`;
+  async findAll() {
+    return  await this.usersRepository.find();
   }
 
   findOne(id: number) {
