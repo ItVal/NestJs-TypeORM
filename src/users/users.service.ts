@@ -44,12 +44,12 @@ export class UsersService {
     }
 
     async remove(id: number) {
-    const user =  await this.usersRepository.delete({ id });
+    const user =  await this.usersRepository.findOne({ where: { id } });
        if (!user) {
            throw new NotFoundException(`User with id ${id} not exist`);
        }
-    console.log({ user }, 'is deleted');
-    return user;
+    
+    return await this.usersRepository.delete({ id })
     }
 
 }
