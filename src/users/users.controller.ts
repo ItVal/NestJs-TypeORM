@@ -11,6 +11,7 @@ import {
 } from '@nestjs/common';
 import { createUsersDto } from './dto/createUsers.dto';
 import { UsersService } from './users.service';
+import { UpdateUserDto } from './dto/updateUser.dto';
 
 @Controller('users')
 export class UsersController {
@@ -50,8 +51,8 @@ export class UsersController {
   update(
     @Param() id,
     @Body()
-      body: createUsersDto,
+      body: UpdateUserDto,
   ) {
-    return body;
+    return this.usersService.update(id, body);
   }
 }
