@@ -22,10 +22,10 @@ export class UserProfileController {
     return this.userProfileService.findOne(id);
   }
 
-  // @Patch('edit/:id')
-  // update(@Param('id') id: string, @Body() updateUserProfileDto: UpdateUserProfileDto) {
-  //   return this.userProfileService.update(+id, updateUserProfileDto);
-  // }
+  @Patch('edit/:id')
+  update(@Param('id') id, @Body() body: UpdateUserProfileDto) {
+    return this.userProfileService.update(id, body);
+  }
 
   // @Delete('delete/:id')
   // remove(@Param('id') id: string) {
