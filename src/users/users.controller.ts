@@ -23,10 +23,10 @@ export class UsersController {
   }
 
 
-  // @Get('one/:id')
-  // findOne(@Param('id') id) {
-  //   return this.usersService.findOne(id);
-  // }
+  @Get('one/:id')
+  findOne(@Param('id') id) {
+    return this.usersService.findOne(id);
+  }
 
   @Post('create')
   // utilisation de la validation des données avec le pipe ValidationPipe
