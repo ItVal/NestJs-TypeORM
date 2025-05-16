@@ -19,7 +19,7 @@ export class UsersController {
 
   @Get()
   findAll() {
-    return 'This action returns all users';
+    return this.usersService.findAll();
   }
 
 
