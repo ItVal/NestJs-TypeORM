@@ -18,14 +18,14 @@ export class UsersService {
 
 
     //findOne
-    // async findOne(id: number) {
-    //    const user =  await this.usersRepository.findOne({ where: { id } });
-    //    if (!user) {
-    //        throw new NotFoundException(`User with id ${id} not found`);
-    //    }
-    //  return user;
+    async findOne(id: number) {
+       const user =  await this.usersRepository.findOne({ where: { id } });
+       if (!user) {
+           throw new NotFoundException(`User with id ${id} not found`);
+       }
+     return user;
 
-    // }
+    }
 
 
     async create(dto:createUsersDto): Promise<User> {
