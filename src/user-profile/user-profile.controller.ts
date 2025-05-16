@@ -18,17 +18,17 @@ export class UserProfileController {
   }
 
   @Get(':id')
-  findOne(@Param('id') id: string) {
-    return this.userProfileService.findOne(+id);
+  findOne(@Param('id') id) {
+    return this.userProfileService.findOne(id);
   }
 
-  @Patch(':id')
-  update(@Param('id') id: string, @Body() updateUserProfileDto: UpdateUserProfileDto) {
-    return this.userProfileService.update(+id, updateUserProfileDto);
-  }
+  // @Patch('edit/:id')
+  // update(@Param('id') id: string, @Body() updateUserProfileDto: UpdateUserProfileDto) {
+  //   return this.userProfileService.update(+id, updateUserProfileDto);
+  // }
 
-  @Delete(':id')
-  remove(@Param('id') id: string) {
-    return this.userProfileService.remove(+id);
-  }
+  // @Delete('delete/:id')
+  // remove(@Param('id') id: string) {
+  //   return this.userProfileService.remove(+id);
+  //}
 }
