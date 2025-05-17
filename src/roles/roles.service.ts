@@ -1,9 +1,10 @@
-import { Injectable } from '@nestjs/common';
+import { BadRequestException, Injectable } from '@nestjs/common';
 import { CreateRoleDto } from './dto/create-role.dto';
 import { UpdateRoleDto } from './dto/update-role.dto';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Role } from 'src/entities/role.entity';
 import { Repository } from 'typeorm';
+import { validate as isUUID } from 'uuid';
 
 @Injectable()
 export class RolesService {
@@ -16,13 +17,16 @@ export class RolesService {
     return await this.rolesRepository.save(createRoleDto);
   }
   //findAll
-  findAll() {
-    return this.rolesRepository.find();
+ async findAll() {
+    return await this.rolesRepository.find();
   }
 
-  // findOne(id: number) {
-  //   return `This action returns a #${id} role`;
-  // }
+  async findOne(id: number) {
+     if (!isUUID(id)) {
+    throw new BadRequestException(`Invalid ID format. Expected UUID.`);
+  }
+    return await this.rolesRepository.findOne({ where: { id } });
+  }
 
   // update(id: number, updateRoleDto: UpdateRoleDto) {
   //   return `This action updates a #${id} role`;
