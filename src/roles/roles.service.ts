@@ -16,9 +16,9 @@ export class RolesService {
     return await this.rolesRepository.save(createRoleDto);
   }
   //findAll
-  // findAll() {
-  //   return `This action returns all roles`;
-  // }
+  findAll() {
+    return this.rolesRepository.find();
+  }
 
   // findOne(id: number) {
   //   return `This action returns a #${id} role`;
