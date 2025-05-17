@@ -1,6 +1,7 @@
-import { Entity, PrimaryGeneratedColumn, Column, OneToOne} from "typeorm";
+import { Entity, PrimaryGeneratedColumn, Column, OneToOne, ManyToOne} from "typeorm";
 import {v4 as uuidv4} from 'uuid';
 import { UserProfiles } from "./userProfiles.entity";
+import { Role } from "./role.entity";
 @Entity()
 export class User {
     @PrimaryGeneratedColumn("uuid")
@@ -14,5 +15,8 @@ export class User {
 
     @OneToOne(() => UserProfiles, (userProfiles) => userProfiles.user, { cascade: true })
     userProfiles: UserProfiles;
+
+    @ManyToOne(() => Role, (role) => role.user)
+    role: Role;
   
 }

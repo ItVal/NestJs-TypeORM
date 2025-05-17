@@ -12,7 +12,7 @@ export class UsersService {
         @InjectRepository(User)
         private usersRepository: Repository<User>,
     ) {}
-    
+
 //findAll
     async findAll(){
         return await this.usersRepository.find();
@@ -45,11 +45,11 @@ export class UsersService {
 
 //remove user
     async remove(id: number) {
-    const user =  await this.usersRepository.findOne({ where: { id } });
-       if (!user) {
-           throw new NotFoundException(`User with id ${id} not exist`);
-       }
-    
+          // Vérifie que l'ID est un UUID valide
+        if (!isUUID(id)) {
+          throw new BadRequestException(`Invalid ID format. Expected UUID.`);
+        }
+
     return await this.usersRepository.delete({ id })
     }
 
