@@ -17,10 +17,10 @@ export class RolesController {
     return this.rolesService.findAll();
   }
 
-  // @Get(':id')
-  // findOne(@Param('id') id: string) {
-  //   return this.rolesService.findOne(+id);
-  // }
+  @Get(':id')
+  findOne(@Param('id') id) {
+    return this.rolesService.findOne(id);
+  }
 
   // @Patch(':id')
   // update(@Param('id') id: string, @Body() updateRoleDto: UpdateRoleDto) {
