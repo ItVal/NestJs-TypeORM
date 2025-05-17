@@ -22,10 +22,10 @@ export class RolesController {
     return this.rolesService.findOne(id);
   }
 
-  // @Patch(':id')
-  // update(@Param('id') id: string, @Body() updateRoleDto: UpdateRoleDto) {
-  //   return this.rolesService.update(+id, updateRoleDto);
-  // }
+  @Patch('edit/:id')
+  update(@Param('id') id, @Body() updateRoleDto: UpdateRoleDto) {
+    return this.rolesService.update(id, updateRoleDto);
+  }
 
   // @Delete(':id')
   // remove(@Param('id') id: string) {

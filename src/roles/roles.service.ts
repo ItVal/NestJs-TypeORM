@@ -28,9 +28,12 @@ export class RolesService {
     return await this.rolesRepository.findOne({ where: { id } });
   }
 
-  // update(id: number, updateRoleDto: UpdateRoleDto) {
-  //   return `This action updates a #${id} role`;
-  // }
+  async update(id: number, updateRoleDto: UpdateRoleDto) {
+      if (!isUUID(id)) {
+    throw new BadRequestException(`Invalid ID format. Expected UUID.`);
+  }
+    return await this.rolesRepository.update(id, updateRoleDto);
+  }
 
   // remove(id: number) {
   //   return `This action removes a #${id} role`;
