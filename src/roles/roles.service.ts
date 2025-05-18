@@ -35,11 +35,11 @@ export class RolesService {
     return await this.rolesRepository.update(id, updateRoleDto);
   }
 
-  remove(id: number) {
+ async remove(id: number) {
     // Vérifie que l'ID est un UUID valide
    if (!isUUID(id)) {
     throw new BadRequestException(`Invalid ID format. Expected UUID.`);
   }
-    return this.rolesRepository.delete({ id });
+    return await this.rolesRepository.delete({ id });
   }
 }
