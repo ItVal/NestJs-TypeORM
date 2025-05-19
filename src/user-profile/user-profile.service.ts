@@ -22,7 +22,6 @@ export class UserProfileService {
   }
 
  async findOne(id: number) {
-   // Vérifie que l'ID est un UUID valide
     if (!isUUID(id)) {
     throw new BadRequestException(`Invalid ID format. Expected UUID.`);
   }
@@ -31,7 +30,6 @@ export class UserProfileService {
   }
 
 async update(id: string, updateUserProfileDto: UpdateUserProfileDto) {
-  // Vérifie que l'ID est un UUID valide
   if (!isUUID(id)) {
     throw new BadRequestException(`Invalid ID format. Expected UUID.`);
   }
@@ -40,7 +38,6 @@ async update(id: string, updateUserProfileDto: UpdateUserProfileDto) {
 }
 
   async remove(id: number) {
-     // Vérifie que l'ID est un UUID valide
   if (!isUUID(id)) {
     throw new BadRequestException(`Invalid ID format. Expected UUID.`);
   }
