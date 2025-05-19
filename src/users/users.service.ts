@@ -13,13 +13,11 @@ export class UsersService {
         private usersRepository: Repository<User>,
     ) {}
 
-//findAll
     async findAll(){
         return await this.usersRepository.find();
     }
 
 
-//findOne
     async findOne(id: number) {
        const user =  await this.usersRepository.findOne({ where: { id } });
        if (!user) {
@@ -29,23 +27,20 @@ export class UsersService {
 
     }
 
-//create user
+
     async create(dto:createUsersDto) {
         return await this.usersRepository.save(dto);
     }
 
-// update user
+
     async update(id: number, updateUserDto: UpdateUserDto) {
-        // Vérifie que l'ID est un UUID valide
         if (!isUUID(id)) {
           throw new BadRequestException(`Invalid ID format. Expected UUID.`);
         }
        return await this.usersRepository.update(id, updateUserDto);
     }
 
-//remove user
     async remove(id: number) {
-          // Vérifie que l'ID est un UUID valide
         if (!isUUID(id)) {
           throw new BadRequestException(`Invalid ID format. Expected UUID.`);
         }

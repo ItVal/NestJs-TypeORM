@@ -12,11 +12,10 @@ export class RolesService {
     @InjectRepository(Role)
     private rolesRepository: Repository<Role>,
   ) {}
-  //create role
   async create(createRoleDto: CreateRoleDto) {
     return await this.rolesRepository.save(createRoleDto);
   }
-  //findAll
+
  async findAll() {
     return await this.rolesRepository.find();
   }
@@ -36,7 +35,6 @@ export class RolesService {
   }
 
  async remove(id: number) {
-    // Vérifie que l'ID est un UUID valide
    if (!isUUID(id)) {
     throw new BadRequestException(`Invalid ID format. Expected UUID.`);
   }
