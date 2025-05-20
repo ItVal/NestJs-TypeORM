@@ -6,7 +6,7 @@ export class UserProfiles {
     @PrimaryGeneratedColumn("uuid")
         id: number;
         @Column()
-        fullPame: string;
+        fullName: string;
 
         @Column()
         phone: string;
@@ -16,7 +16,7 @@ export class UserProfiles {
 
         @Column()
         avatarProfile: string;
-        
+
         @Column()
         bio: string;
 

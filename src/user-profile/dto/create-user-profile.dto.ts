@@ -2,7 +2,7 @@ import { IsString, Length } from "class-validator";
 
 export class CreateUserProfileDto {
             @IsString()
-            fullPame: string;
+            fullName: string;
             @IsString()
             @Length(10, 15)
             phone: string;
