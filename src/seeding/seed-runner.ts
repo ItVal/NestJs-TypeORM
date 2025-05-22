@@ -10,7 +10,7 @@ dataSource
   .initialize()
   .then(async () => {
     console.log('🌱 Seeding started...');
-    await new InitialSeed();
+    await new InitialSeed().run(dataSource);
     console.log('✅ Seeding done');
     process.exit(0);
   })
