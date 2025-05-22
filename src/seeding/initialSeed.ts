@@ -1,11 +1,10 @@
 import { faker } from '@faker-js/faker';
 import { NotFoundException } from '@nestjs/common';
-import { Role } from "src/entities/role.entity";
-import { UserProfiles } from "src/entities/userProfiles.entity";
-import { User } from "src/entities/users.entity";
+import { Role } from '../entities/role.entity';
+import { UserProfiles } from "../entities/userProfiles.entity";
+import { User } from "../entities/users.entity";
 import { DataSource } from "typeorm";
 import { Seeder } from "typeorm-extension";
-
 
 
 export class InitialSeed implements Seeder {
