@@ -39,16 +39,18 @@ export class InitialSeed implements Seeder {
     if (users.length === 0) {
          throw new NotFoundException('No users found');
     }
-    for (let i = 0; i < 10; i++) {
-        const profile = userProfileRepository.create({
-            fullName: faker.name.fullName(),
-            phone: faker.phone.number(),
-            country: faker.address.country(),
-            avatarProfile: faker.image.avatar(),
-            bio: faker.lorem.paragraph(),
-            user: users[Math.floor(Math.random() * users.length)],
-        });     
-        await userProfileRepository.save(profile);
-    }
+   for (const user of users) {
+  const profile = userProfileRepository.create({
+    fullName: faker.name.fullName(),
+    phone: faker.phone.number(),
+    country: faker.address.country(),
+    avatarProfile: faker.image.avatar(),
+    bio: faker.lorem.paragraph(),
+    user: user,
+  });
+
+  await userProfileRepository.save(profile);
+}
+
 
 } }
