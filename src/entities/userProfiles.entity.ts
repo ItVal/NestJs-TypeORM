@@ -5,6 +5,7 @@ import { User } from "./users.entity";
 export class UserProfiles {
     @PrimaryGeneratedColumn("uuid")
         id: number;
+        
         @Column()
         fullName: string;
 
