@@ -1,4 +1,5 @@
 import { faker } from '@faker-js/faker';
+import { NotFoundException } from '@nestjs/common';
 import { Role } from "src/entities/role.entity";
 import { UserProfiles } from "src/entities/userProfiles.entity";
 import { User } from "src/entities/users.entity";
@@ -37,7 +38,7 @@ export  default class InitialSeed implements Seeder {
     //create 10 user profiles
     const users: User[] = await userRepository.find();
     if (users.length === 0) {
-        throw new Error('No users found');
+         throw new NotFoundException('No users found');
     }
     for (let i = 0; i < 10; i++) {
         const profile = userProfileRepository.create({
