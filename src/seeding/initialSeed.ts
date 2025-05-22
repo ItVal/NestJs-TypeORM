@@ -8,7 +8,7 @@ import { Seeder } from "typeorm-extension";
 
 
 
-export  default class InitialSeed implements Seeder {
+export class InitialSeed implements Seeder {
     async run(dataSource: DataSource) {
         const roleRepository = dataSource.getRepository(Role);
         const userRepository = dataSource.getRepository(User);
