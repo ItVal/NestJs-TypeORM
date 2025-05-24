@@ -6,6 +6,7 @@ import { createUsersDto } from './dto/createUsers.dto';
 import { UpdateUserDto } from './dto/updateUser.dto';
 import { validate as isUUID } from 'uuid';
 import { UserPaginationDto } from './dto/userPagination.dto';
+import { DefaultLimitPagination } from 'src/utils/defaultLimitPagination';
 
 @Injectable()
 export class UsersService {
@@ -17,7 +18,7 @@ export class UsersService {
     async findAll(userPaginationDto: UserPaginationDto) {
         return await this.usersRepository.find({
             skip: userPaginationDto.skip,
-            take: userPaginationDto.limit
+            take: userPaginationDto.limit ?? DefaultLimitPagination,
         });
     }
 
