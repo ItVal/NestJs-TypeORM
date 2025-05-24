@@ -1,7 +1,7 @@
 import { IsNumber, IsOptional, IsPositive } from "class-validator";
 
 
-export  class PaginationDto {
+export  class UserPaginationDto {
     @IsNumber()
     @IsPositive()
     @IsOptional()
