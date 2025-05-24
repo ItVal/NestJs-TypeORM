@@ -9,10 +9,12 @@ import {
   UsePipes,
   ValidationPipe,
   Delete,
+  Query,
 } from '@nestjs/common';
 import { createUsersDto } from './dto/createUsers.dto';
 import { UsersService } from './users.service';
 import { UpdateUserDto } from './dto/updateUser.dto';
+import { UserPaginationDto } from './dto/userPagination.dto';
 
 @Controller('users')
 export class UsersController {
@@ -20,8 +22,8 @@ export class UsersController {
 
 
   @Get()
-  findAll() {
-    return this.usersService.findAll();
+  findAll(@Query() userPaginationDto: UserPaginationDto ) {
+    return this.usersService.findAll(userPaginationDto);
   }
 
 
