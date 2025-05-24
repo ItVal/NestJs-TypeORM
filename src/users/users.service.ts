@@ -5,6 +5,7 @@ import { Repository } from 'typeorm';
 import { createUsersDto } from './dto/createUsers.dto';
 import { UpdateUserDto } from './dto/updateUser.dto';
 import { validate as isUUID } from 'uuid';
+import { UserPaginationDto } from './dto/userPagination.dto';
 
 @Injectable()
 export class UsersService {
@@ -13,8 +14,11 @@ export class UsersService {
         private usersRepository: Repository<User>,
     ) {}
 
-    async findAll(){
-        return await this.usersRepository.find();
+    async findAll(userPaginationDto: UserPaginationDto) {
+        return await this.usersRepository.find({
+            skip: userPaginationDto.skip,
+            take: userPaginationDto.limit
+        });
     }
 
 
