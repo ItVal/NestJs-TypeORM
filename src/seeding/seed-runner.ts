@@ -1,5 +1,6 @@
+import 'dotenv/config';
 import { DataSource } from 'typeorm';
-import { dbConfig } from '../dbConfig';
+import dbConfig from '../config/database.config';
 
 
 import { InitialSeed } from './initialSeed';
