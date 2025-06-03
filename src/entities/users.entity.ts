@@ -6,10 +6,13 @@ import { Role } from "./role.entity";
 export class User {
     @PrimaryGeneratedColumn("uuid")
     id: number;
+    
     @Column()
     email: string;
+
     @Column()
     password: string;
+
     @Column()
     status: string;
 
