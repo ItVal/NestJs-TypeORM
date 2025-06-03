@@ -1,5 +1,5 @@
 import { DataSource } from 'typeorm';
-import { dbConfig } from '../../dbConfig';
+import { dbConfig } from '../dbConfig';
 
 
 import { InitialSeed } from './initialSeed';
