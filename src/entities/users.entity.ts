@@ -1,5 +1,6 @@
-import { Entity, PrimaryGeneratedColumn, Column, OneToOne, ManyToOne, JoinColumn} from "typeorm";
+import { Entity, PrimaryGeneratedColumn, Column, OneToOne, ManyToOne, JoinColumn, BeforeInsert} from "typeorm";
 import {v4 as uuidv4} from 'uuid';
+import * as bcrypt from 'bcrypt';
 import { UserProfiles } from "./userProfiles.entity";
 import { Role } from "./role.entity";
 @Entity()
@@ -22,6 +23,11 @@ export class User {
     @ManyToOne(() => Role, (role) => role.user)
     @JoinColumn() 
     role: Role;
+
+    @BeforeInsert()
+     async hashPassword() {
+       this.password = await bcrypt.hash(this.password, 10);
+    }
   
 }
 
