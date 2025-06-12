@@ -54,4 +54,8 @@ export class UsersService {
     return await this.usersRepository.delete({ id })
     }
 
+    //auth user by email
+    async findByEmail(email: string) {
+       return await this.usersRepository.findOne({ where: { email } });
+    }
 }
