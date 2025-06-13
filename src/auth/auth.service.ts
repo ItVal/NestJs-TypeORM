@@ -1,10 +1,17 @@
 import { Injectable, UnauthorizedException } from '@nestjs/common';
+import { JwtService } from '@nestjs/jwt';
 import { compare } from 'bcrypt';
 import { UsersService } from 'src/users/users.service';
+import { AuthJwtPayload } from './types/auth-jwtPayload';
 
 @Injectable()
 export class AuthService {
-    constructor(private userService:UsersService) {}
+    constructor(
+        private userService: UsersService,
+        private jwtService: JwtService
+    ) {}
+
+    // Validate user credentials
     async validateUser(email: string, password: string) {
         const user = await this.userService.findByEmail(email);
         if (!user) throw new UnauthorizedException('User not found');
@@ -12,4 +19,11 @@ export class AuthService {
         if (!isPasswordMatch) throw new UnauthorizedException('Invalid password');
         return {id: user.id}
     }
+
+    //JWT Authentication
+    async login(userId:  number ) {
+        const payload: AuthJwtPayload = { sub: userId };
+        return this.jwtService.sign(payload);
+    }
 }
+
