@@ -10,16 +10,25 @@ import {
   ValidationPipe,
   Delete,
   Query,
+  UseGuards,
+  Req,
 } from '@nestjs/common';
 import { createUsersDto } from './dto/createUsers.dto';
 import { UsersService } from './users.service';
 import { UpdateUserDto } from './dto/updateUser.dto';
 import { UserPaginationDto } from './dto/userPagination.dto';
+import { JwtAuthGuard } from 'src/auth/guards/jwt-auth/jwt-auth.guard';
 
 @Controller('users')
 export class UsersController {
   constructor(private readonly usersService: UsersService) {}
 
+
+  @UseGuards(JwtAuthGuard)
+  @Get('profile')
+  async getProfile(@Req() req) {
+    return this.usersService.findOne(req.user.id);
+  }
 
   @Get()
   findAll(@Query() userPaginationDto: UserPaginationDto ) {
