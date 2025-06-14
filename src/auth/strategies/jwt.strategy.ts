@@ -2,13 +2,14 @@ import { PassportStrategy } from "@nestjs/passport";
 import { Strategy, ExtractJwt } from "passport-jwt";
 import { ConfigType } from "@nestjs/config";
 import jwtConfig from "src/config/jwt.config";
-import { Injectable, NotFoundException } from "@nestjs/common";
-import { Auth } from "typeorm";
+import { Inject, Injectable, NotFoundException } from "@nestjs/common";
 import { AuthJwtPayload } from "../types/auth-jwtPayload";
 
 @Injectable()
 export class JwtStrategy extends PassportStrategy(Strategy) {
-    constructor(private readonly jwtConfiguration: ConfigType<typeof jwtConfig>) {
+    constructor(
+        @Inject(jwtConfig.KEY) 
+        private jwtConfiguration: ConfigType<typeof jwtConfig>) {
 
         if (!jwtConfiguration.secret) {
              throw new NotFoundException("JWT secret is not defined in configuration");
