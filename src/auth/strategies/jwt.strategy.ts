@@ -2,9 +2,11 @@ import { PassportStrategy } from "@nestjs/passport";
 import { Strategy, ExtractJwt } from "passport-jwt";
 import { ConfigType } from "@nestjs/config";
 import jwtConfig from "src/config/jwt.config";
-import { NotFoundException } from "@nestjs/common";
+import { Injectable, NotFoundException } from "@nestjs/common";
+import { Auth } from "typeorm";
+import { AuthJwtPayload } from "../types/auth-jwtPayload";
 
-
+@Injectable()
 export class JwtStrategy extends PassportStrategy(Strategy) {
     constructor(private readonly jwtConfiguration: ConfigType<typeof jwtConfig>) {
 
@@ -18,8 +20,7 @@ export class JwtStrategy extends PassportStrategy(Strategy) {
 
     }
 
-    async validate(payload: any) {
-        // You can customize this method to return user data or just the payload
-        return payload;
+    async validate(payload: AuthJwtPayload) {
+        return {id:payload.sub};
     }
 }
