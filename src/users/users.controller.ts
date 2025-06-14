@@ -29,7 +29,7 @@ export class UsersController {
   async getProfile(@Req() req) {
     return this.usersService.findOne(req.user.id);
   }
-
+/*/
   @Get()
   findAll(@Query() userPaginationDto: UserPaginationDto ) {
     return this.usersService.findAll(userPaginationDto);
@@ -40,6 +40,7 @@ export class UsersController {
   findOne(@Param('id') id) {
     return this.usersService.findOne(id);
   }
+/*/
 
   @Post('create')
   // utilisation de la validation des données avec le pipe ValidationPipe
