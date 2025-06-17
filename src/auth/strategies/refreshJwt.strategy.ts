@@ -6,7 +6,7 @@ import { Inject, Injectable, NotFoundException } from "@nestjs/common";
 import { AuthJwtPayload } from "../types/auth-jwtPayload";
 
 @Injectable()
-export class JwtStrategy extends PassportStrategy(Strategy, 'refresh-jwt') {
+export class RefreshJwtStrategy extends PassportStrategy(Strategy, 'refresh-jwt') {
     constructor(
         @Inject(refreshJwtConfig.KEY) 
         private refreshJwtConfiguration: ConfigType<typeof refreshJwtConfig>) {
@@ -22,7 +22,7 @@ export class JwtStrategy extends PassportStrategy(Strategy, 'refresh-jwt') {
     }
 
     async validate(payload: AuthJwtPayload) {
-        return {id:payload.sub};
+        return { id: payload.sub };
     }
 }
 
