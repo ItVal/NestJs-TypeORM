@@ -23,7 +23,7 @@ export class AuthService {
         return {id: user.id}
     }
 
-    //JWT & refresh jwt Authentication
+    //JWT & refresh jwt generate
     async login(userId:  number ) {
         const payload: AuthJwtPayload = { sub: userId };
         const token = this.jwtService.sign(payload);
@@ -35,5 +35,16 @@ export class AuthService {
         };
 
     }
+    //refresh jwt
+    async refreshToken(userId:  number ) {
+        const payload: AuthJwtPayload = { sub: userId };
+        const token = this.jwtService.sign(payload);
+        return { 
+            id: userId,
+            token
+        };
+
+    }
+
 }
 
