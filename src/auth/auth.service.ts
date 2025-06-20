@@ -50,13 +50,18 @@ export class AuthService {
         };
 
     }
-    //refresh jwt
+    //refresh token rotation
+    // This method generates a new access token and refresh token, hashes the new refresh token,
+    // and updates the stored hashed refresh token in the database.
     async refreshToken(userId:  number ) {
-        const payload: AuthJwtPayload = { sub: userId };
-        const token = this.jwtService.sign(payload);
+        const { accessToken, refreshToken } = await this.generateTokens(userId);
+        const hashedRefreshToken = await argon2.hash(refreshToken);
+        // Store hashed refresh token in the database
+        await this.userService.updatehashedRefreshToken(userId, hashedRefreshToken);
         return { 
             id: userId,
-            token
+            accessToken, 
+            refreshToken 
         };
 
     }
@@ -73,5 +78,9 @@ export class AuthService {
         return { id:userId };
     }
 
+        //logout user
+    async signOut(userId: number) {
+        await this.userService.updatehashedRefreshToken(userId, '');
+    }
 }
 
