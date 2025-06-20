@@ -61,5 +61,17 @@ export class AuthService {
 
     }
 
+    async validateRefreshToken(userId: number, refreshToken: string) {
+        const user = await this.userService.findOne(userId);
+        if (!user || !user.hashedRefreshToken) {
+            throw new UnauthorizedException('User not found or no refresh token stored');
+        }
+        const isRefreshTokenValid = await argon2.verify(user.hashedRefreshToken, refreshToken);
+        if (!isRefreshTokenValid) {
+            throw new UnauthorizedException('Invalid refresh token');
+        }
+        return { id:userId };
+    }
+
 }
 
