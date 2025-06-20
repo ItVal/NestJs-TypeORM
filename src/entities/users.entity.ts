@@ -15,6 +15,9 @@ export class User {
     password: string;
 
     @Column()
+    hashedRefreshToken: string;
+
+    @Column()
     status: string;
 
     @OneToOne(() => UserProfiles, (userProfiles) => userProfiles.user, { cascade: true })
