@@ -31,7 +31,10 @@ export class UsersService {
      return user;
 
     }
-
+//store hashedRefreshToken in the database
+async updatehashedRefreshToken(userId: number, hashedRefreshToken: string) {
+    return await this.usersRepository.update({id:userId}, { hashedRefreshToken });
+}
 
     async create(dto:createUsersDto) {
         const user = await this.usersRepository.create(dto);
