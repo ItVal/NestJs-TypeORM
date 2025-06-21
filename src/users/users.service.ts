@@ -24,14 +24,20 @@ export class UsersService {
 
 
     async findOne(id: number) {
-       const user =  await this.usersRepository.findOne({ where: { id } });
+       const user =  await this.usersRepository.findOne({ 
+        where: { id },
+        select: ['hashedRefreshToken']
+});
        if (!user) {
            throw new NotFoundException(`User with id ${id} not found`);
        }
      return user;
 
     }
-
+//store hashedRefreshToken in the database
+async updatehashedRefreshToken(userId: number, hashedRefreshToken: string) {
+    return await this.usersRepository.update({id:userId}, { hashedRefreshToken });
+}
 
     async create(dto:createUsersDto) {
         const user = await this.usersRepository.create(dto);
