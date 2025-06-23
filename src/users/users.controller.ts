@@ -18,6 +18,8 @@ import { UsersService } from './users.service';
 import { UpdateUserDto } from './dto/updateUser.dto';
 import { UserPaginationDto } from './dto/userPagination.dto';
 import { JwtAuthGuard } from 'src/auth/guards/jwt-auth/jwt-auth.guard';
+import { Roles } from 'src/auth/enums/role.enum';
+import { Roless } from 'src/auth/decorators/role.decorator';
 
 @Controller('users')
 export class UsersController {
@@ -68,7 +70,8 @@ export class UsersController {
   ) {
     return this.usersService.update(id, body);
   }
-
+  
+@Roless(Roles.ADMIN, Roles.EDITOR) //protection de la route avec role base 
 @Delete('delete/:id')
 remove(@Param('id') id) {
   return this.usersService.remove(id);  
