@@ -20,6 +20,7 @@ import { UserPaginationDto } from './dto/userPagination.dto';
 import { JwtAuthGuard } from 'src/auth/guards/jwt-auth/jwt-auth.guard';
 import { Roles } from 'src/auth/enums/role.enum';
 import { Roless } from 'src/auth/decorators/role.decorator';
+import { RolesGuard } from 'src/auth/guards/roles/roles.guard';
 
 @Controller('users')
 export class UsersController {
@@ -31,13 +32,13 @@ export class UsersController {
   async getProfile(@Req() req) {
     return this.usersService.findOne(req.user.id);
   }
-/*/
+
   @Get()
   findAll(@Query() userPaginationDto: UserPaginationDto ) {
     return this.usersService.findAll(userPaginationDto);
   }
 
-
+/*/
   @Get('one/:id')
   findOne(@Param('id') id) {
     return this.usersService.findOne(id);
@@ -70,8 +71,10 @@ export class UsersController {
   ) {
     return this.usersService.update(id, body);
   }
-  
+
 @Roless(Roles.ADMIN, Roles.EDITOR) //protection de la route avec role base 
+@UseGuards(RolesGuard)
+@UseGuards(JwtAuthGuard)
 @Delete('delete/:id')
 remove(@Param('id') id) {
   return this.usersService.remove(id);  
