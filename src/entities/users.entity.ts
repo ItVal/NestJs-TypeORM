@@ -27,9 +27,9 @@ export class User {
     @OneToOne(() => UserProfiles, (userProfiles) => userProfiles.user, { cascade: true })
     userProfiles: UserProfiles;
 
-    @ManyToOne(() => Role, (role) => role.user)
+    @ManyToOne(() => Role, (role) => role.user, {onDelete: 'CASCADE',})
     @JoinColumn() 
-    role: Role;
+    role: Role; 
 
     @BeforeInsert()
      async hashPassword() {
