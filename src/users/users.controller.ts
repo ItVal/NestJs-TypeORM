@@ -72,9 +72,9 @@ export class UsersController {
     return this.usersService.update(id, body);
   }
 
-@Roless(Roles.ADMIN, Roles.EDITOR) //protection de la route avec role base 
-@UseGuards(RolesGuard)
-@UseGuards(JwtAuthGuard)
+@Roless( Roles.EDITOR) //pRoles.ADMIN, rotection de la route avec role base 
+//@UseGuards(RolesGuard)
+//@UseGuards(JwtAuthGuard)
 @Delete('delete/:id')
 remove(@Param('id') id) {
   return this.usersService.remove(id);  

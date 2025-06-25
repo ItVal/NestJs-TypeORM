@@ -12,6 +12,8 @@ import { JwtStrategy } from './strategies/jwt.strategy';
 import { PassportModule } from '@nestjs/passport';
 import refreshjwtConfig from 'src/config/refreshjwt.config';
 import { RefreshJwtStrategy } from './strategies/refreshJwt.strategy';
+import { APP_GUARD } from '@nestjs/core';
+import { RolesGuard } from './guards/roles/roles.guard';
 
 @Module({
   imports: [
@@ -22,6 +24,9 @@ import { RefreshJwtStrategy } from './strategies/refreshJwt.strategy';
     ConfigModule.forFeature(refreshjwtConfig)
   ],
   controllers: [AuthController],
-  providers: [AuthService, UsersService, LocalStrategy, JwtStrategy, RefreshJwtStrategy],
+  providers: [AuthService, UsersService, LocalStrategy, JwtStrategy, RefreshJwtStrategy,
+ // {provide: APP_GUARD, useClass: JwtStrategy },  Registering JwtStrategy as a global guard, applied to all API routes
+  //{ provide: APP_GUARD, useClass: RolesGuard }, // Registering RolesGuard as a global guard
+  ],
 })
 export class AuthModule { }
