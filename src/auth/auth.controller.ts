@@ -5,21 +5,18 @@ import { LocalAuthGuard } from './guards/local-auth/local-auth.guard';
 import { U } from '@faker-js/faker/dist/airline-BUL6NtOJ';
 import { RefreshJwtAuthGuard } from './guards/refresh-jwt-auth/refresh-jwt-auth.guard';
 import { JwtAuthGuard } from './guards/jwt-auth/jwt-auth.guard';
+import { Public } from './decorators/public.decorator';
 
 @Controller('auth')
 export class AuthController {
   constructor(private readonly authService: AuthService) {}
-
+  @Public()
   @HttpCode(HttpStatus.OK) 
   @UseGuards(LocalAuthGuard)
   @Post('login')
   async login(@Request() req) {
     return await this.authService.login(req.user.id);
   }
-
-
-
-
   
   @UseGuards(RefreshJwtAuthGuard)
   @Post('refresh')
