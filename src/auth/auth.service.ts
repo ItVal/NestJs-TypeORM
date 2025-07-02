@@ -6,6 +6,7 @@ import { AuthJwtPayload } from './types/auth-jwtPayload';
 import { ConfigType } from '@nestjs/config';
 import refreshjwtConfig from 'src/config/refreshjwt.config';
 import * as argon2 from 'argon2';
+import { createUsersDto } from 'src/users/dto/createUsers.dto';
 
 @Injectable()
 export class AuthService {
@@ -94,6 +95,12 @@ export class AuthService {
         };
         return currentUser;
 
+    }
+
+    async validateGoogleUser(googleUser: createUsersDto) {
+        const user = await this.userService.findByEmail(googleUser.email);
+        if (user)return user;
+        return await this.userService.create(googleUser);
     }
 }
 

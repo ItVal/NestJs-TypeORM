@@ -1,4 +1,4 @@
-import { Controller, Post, UseGuards, Request, HttpCode, HttpStatus, Get } from '@nestjs/common';
+import { Controller, Post, UseGuards, Request, HttpCode, HttpStatus, Get, Req, Res } from '@nestjs/common';
 import { AuthService } from './auth.service';
 import { AuthGuard } from '@nestjs/passport';
 import { LocalAuthGuard } from './guards/local-auth/local-auth.guard';
@@ -39,7 +39,13 @@ googleLogin(){}
 @Public()
 @UseGuards(GoogleAuthGuard)
 @Get('google/callback')
-googleCallback(){}
+async googleCallback(@Req() req, @Res() res) {
+  // This will be called after Google redirects back to your app
+  // The user information will be available in req.user
+  const response = await this.authService.login(req.user.id);
+  res.redirect(`http://localhost:5173?token=${response.accessToken}&refreshToken=${response.refreshToken}`);
+
+}
 
 
 }
