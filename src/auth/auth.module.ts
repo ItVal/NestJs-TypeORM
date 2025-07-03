@@ -15,6 +15,8 @@ import { RefreshJwtStrategy } from './strategies/refreshJwt.strategy';
 import { APP_GUARD } from '@nestjs/core';
 import { RolesGuard } from './guards/roles/roles.guard';
 import { JwtAuthGuard } from './guards/jwt-auth/jwt-auth.guard';
+import googleOauthConfig from 'src/config/google.oauth.config';
+import { GoogleStrategy } from './strategies/google.stratgy';
 
 @Module({
   imports: [
@@ -22,10 +24,11 @@ import { JwtAuthGuard } from './guards/jwt-auth/jwt-auth.guard';
     TypeOrmModule.forFeature([User]),
     JwtModule.registerAsync(jwtConfig.asProvider()),
     ConfigModule.forFeature(jwtConfig),
-    ConfigModule.forFeature(refreshjwtConfig)
+    ConfigModule.forFeature(refreshjwtConfig),
+    ConfigModule.forFeature(googleOauthConfig) // Importing Google OAuth configuration
   ],
   controllers: [AuthController],
-  providers: [AuthService, UsersService, LocalStrategy, JwtStrategy, RefreshJwtStrategy,
+  providers: [AuthService, UsersService, LocalStrategy, JwtStrategy, RefreshJwtStrategy, GoogleStrategy,
   {provide: APP_GUARD, useClass: JwtAuthGuard }, // Registering JwtStrategy as a global guard, applied to all API routes
   { provide: APP_GUARD, useClass: RolesGuard }, // Registering RolesGuard as a global guard
   ],
