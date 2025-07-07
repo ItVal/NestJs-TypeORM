@@ -40,10 +40,8 @@ googleLogin(){}
 @UseGuards(GoogleAuthGuard)
 @Get('google/callback')
 async googleCallback(@Req() req, @Res() res) {
-  // This will be called after Google redirects back to your app
-  // The user information will be available in req.user
   const response = await this.authService.login(req.user.id);
-  res.redirect(`http://localhost:5173?token=${response.accessToken}&refreshToken=${response.refreshToken}`);
+  res.redirect(`http://localhost:3000/accueil?token=${response.accessToken}&refreshToken=${response.refreshToken}`);
 
 }
 
